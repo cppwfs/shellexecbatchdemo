@@ -1,0 +1,53 @@
+==  Introduction
+
+This project launches a batch job for both exec and shell entrypoints for a docker image
+
+== Build the project
+
+=== To build the demo project
+
+```
+./mvnw clean package
+```
+
+
+=== Update Docker files to set the database configuration
+In each Dockerfile (Dockerfile, DockerfileShell) update `ENTRYPOINT` (line 6) to setup your database credentials.
+
+=== To build the docker image with shell entry point
+
+```
+docker build -t cppwfs/shelltest -f DockerfileShell .
+```
+
+=== To build the docker image with exec entry point
+
+```
+docker build -t cppwfs/exectest -f Dockerfile .
+```
+
+== Running the sample
+1) Run the shell instance as follows:
+```
+docker run --network host cppwfs/shelltest
+```
+
+This job should launch successfully
+2) Run the shell instance again but with a parameter:
+```
+docker run --network host cppwfs/shelltest foo=bar
+```
+The result of this execution should result be `Step already complete or not restartable` and the `foo` job parameter is not present.
+
+3) Run the shell instance again but with a parameter:
+```
+docker run --network host cppwfs/exectest foo=bar
+```
+This job should launch successfully and the `foo` job parameter should be present and set to `bar`.
+
+
+4) Run the shell instance again but with a parameter:
+```
+docker run --network host cppwfs/exectest foo=baz
+```
+This job should launch successfully and the `foo` job parameter should be present and set to `baz`.
