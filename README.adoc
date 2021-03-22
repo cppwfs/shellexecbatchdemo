@@ -1,6 +1,6 @@
 ==  Introduction
 
-This project launches a batch job for both exec and shell entrypoints for a docker image
+A demo that shows how batch behaves when executed in a docker container with a shell or exec entrypoint
 
 == Build the project
 
